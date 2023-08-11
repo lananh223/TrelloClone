@@ -18,7 +18,7 @@ open class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
     }
 
-    fun showProgressDialog(text: String) {
+    fun showProgressDialog() {
         mProgressDialog = Dialog(this)
         mProgressDialog.setContentView(R.layout.dialog_progress)
         mProgressDialog.show()
@@ -31,6 +31,7 @@ open class BaseActivity : AppCompatActivity() {
     fun getCurrentUserID(): String {
         return FirebaseAuth.getInstance().currentUser!!.uid
     }
+
     fun doubleBackToExit() {
         if (doubleBackToExitPressedOnce) {
             onBackPressedDispatcher
@@ -50,9 +51,10 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun showErrorSnackBar(message: String) {
-        val snackBar =
-            Snackbar.make(findViewById(android.R.id.content),
+        Snackbar.make(
+            findViewById(android.R.id.content),
             message,
-            Snackbar.LENGTH_LONG).show()
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 }

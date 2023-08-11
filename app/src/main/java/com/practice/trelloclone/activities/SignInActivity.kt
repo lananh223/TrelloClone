@@ -1,10 +1,9 @@
 package com.practice.trelloclone.activities
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.practice.trelloclone.databinding.ActivitySignInBinding
 
-class SignInActivity : AppCompatActivity() {
+class SignInActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySignInBinding
 
