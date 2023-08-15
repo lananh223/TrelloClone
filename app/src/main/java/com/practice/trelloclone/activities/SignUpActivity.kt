@@ -1,12 +1,12 @@
 package com.practice.trelloclone.activities
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.auth.User
 import com.practice.trelloclone.R
 import com.practice.trelloclone.databinding.ActivitySignUpBinding
 
@@ -26,6 +26,10 @@ class SignUpActivity : BaseActivity() {
         )
 
         setUpActionBar()
+
+        binding.btnSignUp.setOnClickListener {
+            registerUser()
+        }
     }
 
     private fun setUpActionBar() {
@@ -36,7 +40,7 @@ class SignUpActivity : BaseActivity() {
             actionBar.setDisplayHomeAsUpEnabled(true)
             actionBar.setHomeAsUpIndicator(R.drawable.ic_black_arrow_back_24)
         }
-        binding.toolbarSignUpActivity.setNavigationOnClickListener { onBackPressedDispatcher }
+        binding.toolbarSignUpActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     private fun registerUser() {
