@@ -8,11 +8,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.practice.trelloclone.MainActivity
 import com.practice.trelloclone.R
 import com.practice.trelloclone.databinding.ActivitySignInBinding
+import com.practice.trelloclone.module.User
 
 class SignInActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySignInBinding
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,6 @@ class SignInActivity : BaseActivity() {
     }
 
     private fun signInRegisterUser() {
-        val currentUser = auth.currentUser
         val email = binding.etEmail.text.toString().trim { it <= ' ' }
         val password = binding.etPassword.text.toString().trim { it <= ' ' }
 
@@ -62,6 +61,12 @@ class SignInActivity : BaseActivity() {
         }
     }
 
+    fun signInSuccess(user: User) {
+        hideProgressDialog()
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+
     private fun validateForm(email: String, password: String): Boolean {
         return when {
             TextUtils.isEmpty(email) -> {
@@ -77,5 +82,4 @@ class SignInActivity : BaseActivity() {
             else -> true
         }
     }
-
 }

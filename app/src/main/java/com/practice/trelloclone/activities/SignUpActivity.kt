@@ -6,9 +6,9 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.auth.User
 import com.practice.trelloclone.R
 import com.practice.trelloclone.databinding.ActivitySignUpBinding
+import com.practice.trelloclone.firebase.FirestoreClass
 
 class SignUpActivity : BaseActivity() {
 
@@ -54,8 +54,17 @@ class SignUpActivity : BaseActivity() {
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        Log.d(TAG, "createUserWithEmail: successs")
-                        //TODO: update here
+                        // Firebase register user
+                        val firebaseUser: FirebaseUser = task.result.user!!
+                        val registerEmail = firebaseUser.email!!
+                        //create new user
+                        val user = com.practice.trelloclone.module.User(
+                            firebaseUser.uid,
+                            name,
+                            registerEmail
+                        )
+                        FirestoreClass().registerUser(this, user)
+
                     } else {
                         Toast.makeText(
                             this@SignUpActivity,
@@ -105,6 +114,6 @@ class SignUpActivity : BaseActivity() {
 
         FirebaseAuth.getInstance().signOut()
         // Finish the Sign-Up Screen
-        finish()
+//        finish()
     }
 }
