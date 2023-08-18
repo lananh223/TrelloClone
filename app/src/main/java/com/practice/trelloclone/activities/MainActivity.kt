@@ -1,10 +1,10 @@
-package com.practice.trelloclone
+package com.practice.trelloclone.activities
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.practice.trelloclone.activities.IntroActivity
+import com.practice.trelloclone.R
 import com.practice.trelloclone.firebase.FirestoreClass
 
 class MainActivity : AppCompatActivity() {

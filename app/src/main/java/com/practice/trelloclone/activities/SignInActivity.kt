@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.practice.trelloclone.MainActivity
 import com.practice.trelloclone.R
 import com.practice.trelloclone.databinding.ActivitySignInBinding
 import com.practice.trelloclone.module.User
