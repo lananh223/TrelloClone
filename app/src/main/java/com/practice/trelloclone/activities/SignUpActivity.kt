@@ -114,6 +114,6 @@ class SignUpActivity : BaseActivity() {
 
         FirebaseAuth.getInstance().signOut()
         // Finish the Sign-Up Screen
-//        finish()
+        finish()
     }
 }

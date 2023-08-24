@@ -3,16 +3,22 @@ package com.practice.trelloclone.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.practice.trelloclone.R
 import com.practice.trelloclone.firebase.FirestoreClass
+import com.practice.trelloclone.module.User
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private lateinit var mUserName: String
 
     private var drawerLayout: DrawerLayout? = null
     private var navigationView: NavigationView? = null
@@ -30,6 +36,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val currentUserId = FirestoreClass().getCurrentUserId()
         if (currentUserId.isEmpty()) {
             startActivity(Intent(this, IntroActivity::class.java))
+        } else {
+            FirestoreClass().signInUser(this)
         }
 
         setUpActionBar()
@@ -52,6 +60,32 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         } else {
             drawerLayout?.openDrawer(GravityCompat.START)
         }
+    }
+
+    fun updateNavigationUserDetails(user: User) {
+        hideProgressDialog()
+
+        mUserName = user.name
+
+        val headerView = navigationView?.getHeaderView(0)
+        val navUserImage = headerView?.findViewById<ImageView>(R.id.iv_user_image)
+
+        if (navUserImage != null) {
+            Glide
+                .with(this)
+                .load(user.image)
+                .centerCrop()
+                .placeholder(R.drawable.ic_user_place_holder)
+                .into(navUserImage)
+        }
+
+        val navUserName = headerView?.findViewById<TextView>(R.id.tv_username)
+        navUserName?.text = user.name
+
+//        if(readBoardsList) {
+//            showProgressDialog()
+//            FirestoreClass.getBoardsList(this, )
+//        }
     }
 
     override fun onBackPressed() {
